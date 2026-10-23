@@ -73,6 +73,7 @@
       .poem-scroll.is-open .scroll-hint { display: none; }
       .scroll-reveal { width: 100%; height: 0; margin-top: -17px; overflow: hidden; }
       .scroll-reveal[hidden] { display: none; }
+      .finale-restart[hidden] { display: none; }
       .scroll-reveal .poem-card { margin: 0; padding-top: 54px; }
       .poem-card { width: 100%; max-width: 440px; margin: 2px auto 4px; padding: 26px clamp(20px, 5vw, 32px) 28px; border-radius: 20px; background: #f8f1e8; border: 1px solid #eddfcf; color: #634c41; box-shadow: 0 8px 18px rgba(90, 72, 49, .05); text-align: left; }
       .poem-card h2 { font-family: Fraunces, Georgia, serif; font-size: 27px; line-height: 1.2; letter-spacing: -.025em; margin: 0 0 22px; color: #375c43; }
@@ -231,7 +232,7 @@
         if (scene === 'meAnswer') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap"><img class="doodle-art" src="clement-mocking.png" alt="Clément rit en pointant vers toi pour te taquiner" /></div><h1>Mdrrr vsy toi</h1><p class="subtitle">Allez, je vais quand même te montrer la suite.</p><div class="actions"><button class="btn btn-primary" data-action="music">Suivant →</button></div></div>`;
         if (scene === 'playAnswer') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap"><img class="doodle-art" src="clement-agree.png" alt="Clément souriant et faisant un signe d’accord avec le pouce" /></div><h1>Oui exactement</h1><p class="subtitle">Mais attends… j’ai quand même quelque chose pour toi.</p><div class="actions"><button class="btn btn-primary" data-action="music">Suivant →</button></div></div>`;
         if (scene === 'music') card.innerHTML = `<div class="scene scene-standard scene-music"><div class="record-stage"><div class="record" aria-hidden="true"></div><span class="music-note" aria-hidden="true">♫</span></div><h1>J’ai un son pour toi.</h1><p class="subtitle">J’aimerais que tu l’écoutes, parce qu’il me fait penser à toi.</p><p class="music-message">Tu m’as dit que tu comprenais mieux l’anglais maintenant… Si c’est vraiment le cas, essaie de comprendre un peu les paroles</p><p class="track-title">Brent Faiyaz · Allow It</p><div class="actions"><button class="btn btn-secondary" data-action="toggleMusic" aria-label="Lancer la lecture">▶ Play</button><button class="btn btn-primary" data-action="finale">Voir la suite →</button></div><p class="music-error" id="music-error" role="alert" hidden>Le son n’a pas pu démarrer. Réessaie en appuyant sur Play.</p></div>`;
-        if (scene === 'finale') card.innerHTML = `<div class="scene finale-scene"><h1>Mme maroua lazreg...</h1><div class="art-wrap"><img class="doodle-art" src="clement-cartoon.png" alt="Portrait de Clément en dessin animé tenant un matcha et un bouquet de roses" /></div><div class="poem-scroll"><button class="scroll-trigger" type="button" data-action="toggleScroll" aria-expanded="false" aria-controls="poem-scroll-content"><span class="scroll-roll" aria-hidden="true"><span class="scroll-roll-body"></span><span class="scroll-roll-cap left"></span><span class="scroll-roll-cap right"></span><span class="scroll-ribbon"></span><span class="scroll-seal">M</span></span><span class="scroll-hint">Appuie pour dérouler le poème</span></button><div class="scroll-reveal" id="poem-scroll-content" aria-hidden="true" inert hidden>${poem}</div></div><div class="actions"><button class="btn btn-ghost" data-action="welcome">Recommencer l’histoire ↩</button></div></div>`;
+        if (scene === 'finale') card.innerHTML = `<div class="scene finale-scene"><h1>Mme maroua lazreg...</h1><div class="art-wrap"><img class="doodle-art" src="clement-cartoon.png" alt="Portrait de Clément en dessin animé tenant un matcha et un bouquet de roses" /></div><div class="poem-scroll"><button class="scroll-trigger" type="button" data-action="toggleScroll" aria-expanded="false" aria-controls="poem-scroll-content"><span class="scroll-roll" aria-hidden="true"><span class="scroll-roll-body"></span><span class="scroll-roll-cap left"></span><span class="scroll-roll-cap right"></span><span class="scroll-ribbon"></span><span class="scroll-seal">M</span></span><span class="scroll-hint">Appuie pour dérouler le poème</span></button><div class="scroll-reveal" id="poem-scroll-content" aria-hidden="true" inert hidden>${poem}</div></div><div class="actions finale-restart" hidden><button class="btn btn-ghost" data-action="welcome">Recommencer l’histoire ↩</button></div></div>`;
         syncMusicControls();
         requestAnimationFrame(() => card.querySelector('button')?.focus({ preventScroll: true }));
       }
@@ -285,8 +286,10 @@
       function togglePoemScroll() {
         const trigger = card.querySelector('.scroll-trigger');
         const panel = card.querySelector('.scroll-reveal');
+        const restartAction = card.querySelector('.finale-restart');
         if (!trigger || !panel) return;
         const opening = trigger.getAttribute('aria-expanded') !== 'true';
+        restartAction.hidden = true;
         if (opening) panel.hidden = false;
         const currentHeight = panel.getBoundingClientRect().height;
         poemScrollAnimation?.cancel();
@@ -313,6 +316,7 @@
           panel.style.height = opening ? 'auto' : '0px';
           animation.cancel();
           if (!opening) panel.hidden = true;
+          if (opening) restartAction.hidden = false;
           poemScrollAnimation = null;
         };
       }
