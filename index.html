@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f4ed" />
+    <meta name="description" content="Une petite surprise, un choix très sérieux et un matcha un peu capricieux." />
+    <title>Une petite surprise pour toi ♡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght,SOFT,WONK@9..144,600,30,1;9..144,700,30,1&display=swap" rel="stylesheet" />
+    <style>
+      :root { font-family: "DM Sans", sans-serif; color: #24362b; background: #f7f4ed; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100svh; overflow-x: hidden; }
+      button { font: inherit; }
+      button:focus-visible { outline: 3px solid #dc8575; outline-offset: 4px; }
+      .page { min-height: 100svh; padding: max(20px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; isolation: isolate; }
+      .page::before { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(circle at 8% 18%, #e8eddd 0 10%, transparent 29%), radial-gradient(circle at 93% 86%, #f5dfd2 0 8%, transparent 31%), #f7f4ed; }
+      .page::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .23; background-image: radial-gradient(#83937e .65px, transparent .65px); background-size: 21px 21px; }
+      .topbar { width: min(100%, 1040px); display: flex; align-items: center; justify-content: space-between; min-height: 42px; }
+      .brand { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 800; }
+      .brand-mark { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; background: #244633; color: #fff8ed; font-size: 17px; line-height: 1; }
+      .top-note { font-size: 13px; color: #778378; font-weight: 600; }
+      main { width: min(100%, 540px); flex: 1; display: flex; align-items: center; justify-content: center; padding: 30px 0 22px; }
+      .card { position: relative; width: 100%; min-height: 620px; padding: 28px 28px 24px; border: 1px solid rgba(49, 75, 52, .08); border-radius: 36px; background: #fffdf8; box-shadow: 0 30px 80px rgba(53, 72, 52, .11), 0 3px 8px rgba(53, 72, 52, .03); display: flex; flex-direction: column; overflow: hidden; animation: card-in .5s cubic-bezier(.2,.9,.2,1) both; }
+      .card::before { content: ""; position: absolute; width: 165px; height: 165px; border-radius: 50%; background: #e9f0dc; top: -95px; right: -52px; pointer-events: none; }
+      .card[data-scene="chase"] { min-height: 690px; }
+      .card-top { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; }
+      .step { color: #8a9689; font-weight: 800; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; }
+      .progress { display: flex; gap: 5px; }
+      .progress span { width: 19px; height: 5px; border-radius: 9px; background: #e6e8df; }
+      .progress span.on { background: #2b6948; }
+      .scene { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
+      .scene-intro { justify-content: center; padding: 28px 0 6px; }
+      .scene-standard { justify-content: center; padding: 25px 0 10px; }
+      .eyebrow { color: #498660; text-transform: uppercase; letter-spacing: .16em; font-size: 11px; font-weight: 800; margin: 0 0 13px; }
+      h1 { font-family: Fraunces, Georgia, serif; font-size: clamp(38px, 8.2vw, 55px); line-height: 1.04; letter-spacing: -.055em; max-width: 430px; margin: 0; font-weight: 700; }
+      .scene-standard h1 { font-size: clamp(33px, 7.5vw, 45px); }
+      .subtitle { font-size: 15px; line-height: 1.55; color: #748074; max-width: 325px; margin: 17px auto 0; }
+      .pill { display: inline-flex; align-items: center; gap: 7px; color: #5f7861; background: #eef3e8; padding: 8px 13px; border-radius: 99px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+      .art-wrap { width: 100%; display: grid; place-items: center; position: relative; margin: 20px auto 25px; }
+      .gift-art { width: min(270px, 69vw); height: auto; filter: drop-shadow(0 20px 20px rgba(58, 80, 56, .13)); animation: float 4s ease-in-out infinite; }
+      .island-art { width: min(270px, 70vw); margin: 10px auto 8px; }
+      .heart-art { width: min(230px, 58vw); margin: 25px auto 27px; }
+      .matcha-art { width: min(245px, 63vw); height: auto; filter: drop-shadow(0 20px 19px rgba(45, 80, 54, .14)); animation: float 4s ease-in-out infinite; }
+      .sparkle { position: absolute; color: #d8a35e; font-family: Georgia, serif; font-size: 31px; }
+      .sparkle.one { left: 15%; top: 10%; }.sparkle.two { right: 12%; bottom: 22%; font-size: 21px; }
+      .actions { width: 100%; max-width: 372px; display: grid; gap: 10px; margin-top: 26px; }
+      .btn { min-height: 56px; border: 0; border-radius: 18px; padding: 13px 18px; cursor: pointer; font-size: 15px; font-weight: 800; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; touch-action: manipulation; }
+      .btn:hover { transform: translateY(-2px); }.btn:active { transform: scale(.98); }
+      .btn-primary { color: #fffdf8; background: #244c35; box-shadow: 0 9px 18px rgba(36, 76, 53, .17); }
+      .btn-primary:hover { background: #306043; }
+      .btn-secondary { color: #33533e; background: #ecf1e7; }
+      .btn-secondary:hover { background: #e2eadb; }
+      .btn-ghost { background: transparent; color: #7e897f; text-decoration: underline; text-underline-offset: 3px; min-height: 44px; }
+      .choices { grid-template-columns: 1fr 1fr; }
+      .choice { min-height: 114px; background: #f5f6ee; border: 1px solid #e2e9dc; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #31503a; }
+      .choice .emoji { font-size: 30px; line-height: 1; }
+      .choice:hover { background: #eaf1e4; border-color: #b5ccb6; }
+      .flavors { grid-template-columns: repeat(3, 1fr); gap: 9px; max-width: 410px; }
+      .flavor { min-height: 100px; border: 1px solid #e5e9de; background: #f7f8f1; color: #34513c; padding: 10px 4px; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; }
+      .flavor .emoji { font-size: 27px; line-height: 1; }.flavor span:last-child { font-size: 13px; }
+      .flavor:hover { background: #edf3e8; border-color: #b9cdb7; }
+      .footer { color: #a4aaa0; font-size: 11px; text-align: center; letter-spacing: .03em; padding-top: 8px; }
+      .speech { display: inline-block; margin: 16px 0 0; padding: 11px 16px; background: #f7eadf; color: #815b48; border-radius: 15px 15px 15px 3px; font-weight: 700; font-size: 13px; transform: rotate(-3deg); }
+      .chase-scene { padding-top: 36px; }
+      .chase-scene h1 { font-size: clamp(31px, 7vw, 43px); }
+      .chase-field { position: relative; width: 100%; height: 320px; margin-top: 16px; border-radius: 28px; background: radial-gradient(circle at 50% 45%, #f4f7ec 0 31%, #eef3e6 65%, #eaf0e3 100%); overflow: hidden; border: 1px dashed #d9e5d1; }
+      .chase-field::after { content: "✦  ✧  ✦"; position: absolute; left: 0; right: 0; bottom: 22px; color: #d0dcbf; letter-spacing: 56px; font-size: 20px; pointer-events: none; white-space: nowrap; }
+      .runaway { position: absolute; left: clamp(80px, var(--x, 50%), calc(100% - 80px)); top: clamp(90px, var(--y, 52%), calc(100% - 90px)); width: 160px; height: 180px; border: 0; padding: 0; background: transparent; cursor: pointer; transform: translate(-50%, -50%); transition: left .3s cubic-bezier(.2,.9,.3,1), top .3s cubic-bezier(.2,.9,.3,1), transform .2s; z-index: 2; touch-action: manipulation; }
+      .runaway:hover { transform: translate(-50%, -50%) rotate(-5deg) scale(1.04); }
+      .runaway .matcha-art { width: 160px; animation: none; }
+      .runaway-label { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); background: #fffdf8; padding: 5px 9px; border-radius: 99px; white-space: nowrap; color: #4d7455; font-weight: 800; font-size: 11px; box-shadow: 0 3px 9px #cfdacb; }
+      .taunt { min-height: 42px; margin: 12px 0 2px; font-size: 13px; font-weight: 700; color: #6d846e; }
+      .bottom-action { width: 100%; max-width: 372px; margin-top: auto; }
+      .bottom-action .btn { width: 100%; }
+      @keyframes card-in { from { opacity: 0; transform: translateY(15px) scale(.98); } to { opacity: 1; transform: none; } }
+      @keyframes float { 50% { transform: translateY(-8px) rotate(2deg); } }
+      @media (max-width: 570px) {
+        .page { padding-left: 13px; padding-right: 13px; }
+        .topbar { padding: 0 7px; }.top-note { font-size: 11px; }
+        main { padding: 16px 0 14px; align-items: stretch; }
+        .card { min-height: min(690px, calc(100svh - 112px)); padding: 23px 21px 20px; border-radius: 29px; }
+        .card[data-scene="chase"] { min-height: 690px; }
+        .scene-intro { padding-top: 16px; }.art-wrap { margin-top: 20px; margin-bottom: 15px; }
+        .gift-art { width: min(238px, 61vw); }.island-art { width: min(235px, 62vw); }
+        .matcha-art { width: min(205px, 55vw); }
+        .actions { margin-top: 20px; }
+        .chase-field { height: 290px; }.chase-scene { padding-top: 27px; }
+      }
+      @media (max-width: 360px) { .brand { letter-spacing: .06em; font-size: 10px; }.top-note { font-size: 10px; } .card { padding-inline: 16px; } h1 { font-size: 36px; } .scene-standard h1 { font-size: 31px; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">♡</span><span>pour toi, évidemment</span></div><span class="top-note">une surprise de Clément ✳</span></header>
+      <main><section class="card" id="card" aria-live="polite"></section></main>
+      <footer class="footer">fait avec amour (et un peu de mauvaise foi) ♡</footer>
+    </div>
+    <script>
+      const card = document.querySelector('#card');
+      const flavors = {
+        fraise: { name: 'fraise', icon: '🍓', accent: '#e7a7a5', foam: '#efc9c4' },
+        vanille: { name: 'vanille', icon: '🍦', accent: '#e8d9ad', foam: '#f4e7c2' },
+        mangue: { name: 'mangue', icon: '🥭', accent: '#f2b86f', foam: '#f6d4a2' }
+      };
+      const stepHeader = (step, active) => `<div class="card-top"><span class="step">${step}</span><div class="progress" aria-label="Étape ${active} sur 3">${[1,2,3].map(n => `<span class="${n <= active ? 'on' : ''}"></span>`).join('')}</div></div>`;
+      const gift = `<svg class="gift-art" viewBox="0 0 310 245" role="img" aria-label="Un cadeau avec un ruban vert"><ellipse cx="155" cy="223" rx="112" ry="13" fill="#dfe8d5"/><g transform="rotate(-5 155 125)"><rect x="61" y="77" width="188" height="133" rx="16" fill="#e9b0a4"/><path d="M61 107h188v87a16 16 0 0 1-16 16H77a16 16 0 0 1-16-16z" fill="#efa99f"/><path d="M134 77h41v133h-41z" fill="#2f6f4a"/><rect x="52" y="70" width="206" height="39" rx="11" fill="#f7c3b5"/><path d="M134 70h41v39h-41z" fill="#377c51"/><path d="M155 70C95 56 91 9 122 14c27 4 34 39 33 56Zm0 0c58-22 59-64 30-58-24 5-32 42-30 58Z" fill="#3a8255" stroke="#286641" stroke-width="5" stroke-linejoin="round"/><circle cx="155" cy="69" r="14" fill="#2f6f4a"/></g></svg>`;
+      const island = `<svg class="island-art" viewBox="0 0 310 220" role="img" aria-label="Une petite île déserte avec un palmier"><ellipse cx="155" cy="190" rx="141" ry="21" fill="#d9ebe1"/><path d="M54 182c32-48 165-53 210 0 5 6-8 17-39 20H83c-27-3-36-11-29-20Z" fill="#efd4a5"/><path d="M171 173c-21-67-12-111 0-139" fill="none" stroke="#8f7650" stroke-width="16" stroke-linecap="round"/><path d="M171 42C141 8 104 11 77 42c34-7 57 2 94 12M170 43C200 7 242 20 259 48c-33-9-56-3-90 9M170 46c4-37-18-52-45-51 17 15 25 34 39 57m7-6c29-24 55-22 74-9-24 2-42 14-73 21" fill="#5d9564" stroke="#4a7e53" stroke-width="5" stroke-linejoin="round"/><circle cx="108" cy="129" r="11" fill="#f3bb93"/><path d="M240 173l11-29 11 29" fill="#f1ede5" stroke="#dfd7c8" stroke-width="5" stroke-linejoin="round"/></svg>`;
+      const heart = `<svg class="heart-art" viewBox="0 0 250 220" role="img" aria-label="Un grand cœur rose"><ellipse cx="125" cy="205" rx="93" ry="12" fill="#e7eadd"/><path d="M125 185C89 152 39 117 39 76c0-24 18-43 43-43 20 0 35 11 43 27 8-16 23-27 43-27 25 0 43 19 43 43 0 41-50 76-86 109Z" fill="#eeb0a5" stroke="#e29890" stroke-width="6"/><path d="M76 64c-10 4-16 12-16 25" fill="none" stroke="#fff5ee" stroke-width="8" stroke-linecap="round"/><path d="m27 55-5 9-10 3 10 4 5 9 4-9 10-4-10-3zM219 129l-4 8-8 3 8 3 4 8 3-8 8-3-8-3z" fill="#d5ae68"/></svg>`;
+      function matcha(flavor = flavors.vanille) {
+        return `<svg class="matcha-art" viewBox="0 0 250 250" role="img" aria-label="Matcha glacé goût ${flavor.name}"><ellipse cx="125" cy="228" rx="79" ry="11" fill="#dce7d7"/><path d="M79 37h92l-10 171c-1 10-8 17-18 17h-36c-10 0-17-7-18-17L79 37Z" fill="#e8efe1" stroke="#b7c9b7" stroke-width="5"/><path d="M82 87h86l-7 121c-1 10-8 17-18 17h-36c-10 0-17-7-18-17L82 87Z" fill="#a7bd80"/><path d="M81 57h88l-2 39H83l-2-39Z" fill="${flavor.foam}"/><path d="M84 96c18-8 33-4 44 0 15 7 25 5 38-1" fill="none" stroke="#f8f6e8" stroke-width="9" stroke-linecap="round"/><path d="M90 118c22-7 33 6 53 5 8 0 13-2 20-5" fill="none" stroke="#c9d7aa" stroke-width="8" opacity=".7"/><path d="M125 24l57 5" fill="none" stroke="#6b7654" stroke-width="8" stroke-linecap="round"/><path d="M142 31l-10 75" fill="none" stroke="#6b7654" stroke-width="7" stroke-linecap="round"/><ellipse cx="125" cy="58" rx="46" ry="15" fill="${flavor.accent}" stroke="#f7f1e6" stroke-width="5"/><path d="M84 57c7 18 21 23 41 23s37-8 43-23" fill="none" stroke="#e6e8d0" stroke-width="5"/><circle cx="106" cy="50" r="8" fill="#fff7e8" opacity=".75"/><circle cx="141" cy="54" r="6" fill="#fff7e8" opacity=".7"/><path d="M90 138c4 30 7 46 9 63" fill="none" stroke="#d7e7c5" stroke-width="7" stroke-linecap="round" opacity=".75"/></svg>`;
+      }
+      function show(scene, flavorKey = 'vanille') {
+        const flavor = flavors[flavorKey] || flavors.vanille;
+        card.dataset.scene = scene;
+        if (scene === 'welcome') card.innerHTML = `${stepHeader('Une petite surprise · 01', 1)}<div class="scene scene-intro"><div class="pill">✦ message très important</div><div class="art-wrap"><span class="sparkle one">✧</span>${gift}<span class="sparkle two">✦</span></div><p class="eyebrow">Coucou mon amour</p><h1>Tu veux voir ton cadeau&nbsp;?</h1><p class="subtitle">Réfléchis bien avant de répondre. Enfin… pas trop non plus.</p><div class="actions"><button class="btn btn-primary" data-action="island">Oui, évidemment ✨</button><button class="btn btn-secondary" data-action="no">Non 🙃</button></div></div>`;
+        if (scene === 'no') card.innerHTML = `${stepHeader('Attends, quoi ? · 01', 1)}<div class="scene scene-standard"><div class="art-wrap">${heart}</div><p class="eyebrow">Mauvaise réponse détectée</p><h1>Wsh tu joues à quoi&nbsp;?</h1><p class="subtitle">On va faire comme si j’avais pas vu ça.</p><div class="actions"><button class="btn btn-primary" data-action="island">Ok ok, oui je veux voir 😭</button><button class="btn btn-ghost" data-action="welcome">Recommencer</button></div></div>`;
+        if (scene === 'island') card.innerHTML = `${stepHeader('Question piège · 02', 2)}<div class="scene scene-standard"><div class="art-wrap">${island}</div><p class="eyebrow">Avant, j’ai une question…</p><h1>Si tu étais sur une île déserte, qu’est-ce qui te manquerait le plus&nbsp;?</h1><div class="actions choices"><button class="btn choice" data-action="flavor"><span class="emoji" aria-hidden="true">🍵</span><span>Du matcha</span></button><button class="btn choice" data-action="clement"><span class="emoji" aria-hidden="true">🫶</span><span>Clément</span></button></div><p class="subtitle">Aucune pression. Vraiment aucune.</p></div>`;
+        if (scene === 'flavor') card.innerHTML = `${stepHeader('Un choix délicieux · 03', 3)}<div class="scene scene-standard"><div class="art-wrap">${matcha()}<span class="sparkle two">✧</span></div><p class="eyebrow">Ah ouais, carrément le matcha ?</p><h1>Bon… choisis ton goût alors.</h1><p class="subtitle">Puisque monsieur Clément passe après une boisson.</p><div class="actions flavors">${Object.entries(flavors).map(([key, f]) => `<button class="btn flavor" data-action="chase" data-flavor="${key}"><span class="emoji" aria-hidden="true">${f.icon}</span><span>${f.name[0].toUpperCase() + f.name.slice(1)}</span></button>`).join('')}</div></div>`;
+        if (scene === 'chase') card.innerHTML = `${stepHeader('Attrape-moi si tu peux · 03', 3)}<div class="scene chase-scene"><p class="eyebrow">Ton matcha ${flavor.name} t’attend</p><h1>Vas-y, prends-le&nbsp;!</h1><p class="subtitle">Il suffit de cliquer dessus. Normalement.</p><div class="chase-field" id="chase-field"><button class="runaway" style="--x:50%;--y:52%" data-action="run" aria-label="Attraper le matcha ${flavor.name}">${matcha(flavor)}<span class="runaway-label">attrape-moi 🍵</span></button></div><p class="taunt" id="taunt" aria-live="polite">Il est juste là… 👀</p><div class="bottom-action"><button class="btn btn-secondary" data-action="island">J’ai eu tort</button></div></div>`;
+        if (scene === 'clement') card.innerHTML = `${stepHeader('La vérité éclate · 03', 3)}<div class="scene scene-standard"><div class="art-wrap">${heart}</div><p class="eyebrow">C’est mignon, vraiment</p><h1>Moi jtaurai pas choisit mdrrr</h1><div class="speech">Je rigoleeee. Enfin… peut-être. ♡</div><p class="subtitle">Bon, tu veux retenter ta chance&nbsp;?</p><div class="actions"><button class="btn btn-primary" data-action="island">Revoir les choix ↩</button><button class="btn btn-ghost" data-action="welcome">Tout recommencer</button></div></div>`;
+        requestAnimationFrame(() => card.querySelector('button')?.focus({ preventScroll: true }));
+      }
+      let tries = 0;
+      let currentFlavor = 'vanille';
+      const taunts = ['Raté 😌', 'Il est rapide hein ?', 'Même le matcha te fuit 😭', 'Toujours pas… 👀', 'Clément aurait été plus simple.', 'Tu peux avouer que j’avais raison ♡'];
+      function moveMatcha() {
+        const cup = card.querySelector('.runaway');
+        if (!cup) return;
+        tries += 1;
+        const positions = [[22, 31], [77, 67], [72, 29], [27, 69], [50, 34], [65, 66], [30, 35], [53, 70]];
+        const [x, y] = positions[(tries - 1) % positions.length];
+        cup.style.setProperty('--x', `${x}%`);
+        cup.style.setProperty('--y', `${y}%`);
+        card.querySelector('#taunt').textContent = taunts[Math.min(tries - 1, taunts.length - 1)];
+      }
+      card.addEventListener('click', event => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'run') return moveMatcha();
+        if (action === 'chase') { currentFlavor = button.dataset.flavor; tries = 0; show('chase', currentFlavor); return; }
+        show(action);
+      });
+      show('welcome');
+    </script>
+  </body>
+</html>
