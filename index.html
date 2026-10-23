@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f7f4ed" />
+    <meta name="theme-color" content="#050505" />
     <meta name="description" content="Une petite surprise, un choix très sérieux et un matcha un peu capricieux." />
     <title>Une petite surprise pour toi ♡</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,6 +15,20 @@
       body { margin: 0; min-height: 100svh; overflow-x: hidden; }
       button { font: inherit; }
       button:focus-visible { outline: 3px solid #dc8575; outline-offset: 4px; }
+      .headphones-intro { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: max(32px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom)); background: #050505; color: #fffdf8; text-align: center; }
+      .headphones-intro[hidden], .page.before-start { display: none; }
+      .headphones-intro.is-leaving { animation: intro-out .45s ease-in both; pointer-events: none; }
+      .headphones-content { width: min(100%, 650px); }
+      .headphones-icon { width: 112px; height: 112px; display: grid; place-items: center; margin: 0 auto 38px; border: 1px solid #525252; border-radius: 50%; color: #fffdf8; animation: intro-icon .75s cubic-bezier(.2, .9, .2, 1.15) .1s both; }
+      .headphones-icon svg { width: 62px; height: 62px; }
+      .headphones-icon svg path, .headphones-icon svg rect { stroke-dasharray: 220; stroke-dashoffset: 220; animation: headphones-draw 1.1s ease .35s both; }
+      .headphones-intro h1 { max-width: 650px; margin: 0 auto 35px; color: #fffdf8; font-size: clamp(37px, 8vw, 64px); line-height: 1.08; animation: intro-rise .7s ease .4s both; }
+      .headphones-intro button { min-height: 58px; border: 0; border-radius: 18px; padding: 14px 25px; background: #fffdf8; color: #1e2820; font-size: 15px; font-weight: 800; cursor: pointer; animation: intro-rise .7s ease .65s both; }
+      .headphones-intro button:hover { background: #e9f0dc; }
+      @keyframes intro-icon { from { opacity: 0; transform: translateY(20px) scale(.75) rotate(-10deg); } to { opacity: 1; transform: none; } }
+      @keyframes headphones-draw { to { stroke-dashoffset: 0; } }
+      @keyframes intro-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+      @keyframes intro-out { to { opacity: 0; transform: scale(1.025); } }
       .page { min-height: 100svh; padding: max(20px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; isolation: isolate; }
       .page::before { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(circle at 8% 18%, #e8eddd 0 10%, transparent 29%), radial-gradient(circle at 93% 86%, #f5dfd2 0 8%, transparent 31%), #f7f4ed; }
       .page::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .23; background-image: radial-gradient(#83937e .65px, transparent .65px); background-size: 21px 21px; }
@@ -25,15 +39,15 @@
       .scene { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
       .scene-intro { justify-content: center; padding: 28px 0 6px; }
       .scene-standard { justify-content: center; padding: 25px 0 10px; }
-      .eyebrow { color: #498660; text-transform: uppercase; letter-spacing: .16em; font-size: 11px; font-weight: 800; margin: 0 0 13px; }
+      .scene-intro .eyebrow { color: #498660; text-transform: uppercase; letter-spacing: .16em; font-size: 11px; font-weight: 800; margin: 0 0 13px; }
       h1 { font-family: Fraunces, Georgia, serif; font-size: clamp(38px, 8.2vw, 55px); line-height: 1.04; letter-spacing: -.055em; max-width: 430px; margin: 0; font-weight: 700; }
       .scene-standard h1 { font-size: clamp(33px, 7.5vw, 45px); }
       .subtitle { font-size: 15px; line-height: 1.55; color: #748074; max-width: 325px; margin: 17px auto 0; }
-      .pill { display: inline-flex; align-items: center; gap: 7px; color: #5f7861; background: #eef3e8; padding: 8px 13px; border-radius: 99px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
       .art-wrap { width: 100%; display: grid; place-items: center; position: relative; margin: 20px auto 25px; }
       .gift-art { width: min(270px, 69vw); height: auto; filter: drop-shadow(0 20px 20px rgba(58, 80, 56, .13)); animation: float 4s ease-in-out infinite; }
       .island-art { width: min(270px, 70vw); margin: 10px auto 8px; }
       .heart-art { width: min(230px, 58vw); margin: 25px auto 27px; }
+      .payment-art { width: min(250px, 65vw); height: auto; margin: 10px auto 15px; filter: drop-shadow(0 15px 16px rgba(53, 72, 52, .12)); }
       .doodle-art { display: block; width: min(330px, 78vw); height: min(360px, 46vh); object-fit: contain; filter: drop-shadow(0 15px 16px rgba(45, 80, 54, .1)); }
       .finale-scene { justify-content: center; padding: 22px 0 10px; }
       .finale-scene h1 { font-size: clamp(34px, 7.5vw, 45px); }
@@ -72,6 +86,26 @@
       .taunt { min-height: 42px; margin: 12px 0 2px; font-size: 13px; font-weight: 700; color: #6d846e; }
       .bottom-action { width: 100%; max-width: 372px; margin-top: auto; }
       .bottom-action .btn { width: 100%; }
+      .music-player { position: fixed; top: max(18px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); z-index: 10; }
+      .music-player[hidden] { display: none; }
+      .music-player-button { display: flex; align-items: center; gap: 10px; padding: 7px 12px 7px 7px; border: 1px solid #dce7d8; border-radius: 99px; background: #fffdf8; color: #244633; box-shadow: 0 9px 25px rgba(49, 75, 52, .14); cursor: pointer; }
+      .player-disc, .record { display: grid; place-items: center; border-radius: 50%; background: repeating-radial-gradient(circle, #24362b 0 3px, #35473a 4px 6px, #1d2f25 7px 9px); box-shadow: inset 0 0 0 2px #192a20, 0 10px 20px rgba(31, 52, 35, .18); }
+      .player-disc { width: 42px; height: 42px; flex: none; }
+      .player-disc::after, .record::after { content: "♡"; display: grid; place-items: center; border-radius: 50%; background: #eeb0a5; color: #fffdf8; }
+      .player-disc::after { width: 18px; height: 18px; font-size: 12px; }
+      .music-player.is-playing .player-disc, .page.music-playing .record { animation: spin 3s linear infinite; }
+      .player-details { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.25; }
+      .player-details strong { font-size: 12px; }
+      .player-details small { color: #748074; font-size: 11px; }
+      .player-symbol { margin-left: 4px; font-size: 15px; }
+      .scene-music .record-stage { position: relative; margin: 6px auto 30px; }
+      .record { width: min(186px, 48vw); aspect-ratio: 1; }
+      .record::after { width: 74px; height: 74px; font-size: 39px; }
+      .scene-music .music-note { position: absolute; top: 0; right: -28px; color: #d5ae68; font-size: 33px; transform: rotate(13deg); }
+      .music-message { max-width: 360px; margin: 17px auto 0; color: #526957; font-size: 15px; line-height: 1.55; }
+      .music-error { margin: 10px 0 0; color: #a04743; font-size: 13px; }
+      .track-title { margin-top: 20px; color: #815b48; font-size: 13px; font-weight: 800; }
+      @keyframes spin { to { transform: rotate(360deg); } }
       @keyframes card-in { from { opacity: 0; transform: translateY(15px) scale(.98); } to { opacity: 1; transform: none; } }
       @keyframes float { 50% { transform: translateY(-8px) rotate(2deg); } }
       @media (max-width: 570px) {
@@ -86,17 +120,39 @@
         .chase-field { height: 290px; }.chase-scene { padding-top: 27px; }
         .card[data-scene="finale"] { min-height: 720px; }
         .doodle-art { width: min(280px, 70vw); height: min(330px, 40vh); }
+        .page.player-visible main { padding-top: 84px; }
       }
       @media (max-width: 360px) { .card { padding-inline: 16px; } h1 { font-size: 36px; } .scene-standard h1 { font-size: 31px; } }
-      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
     </style>
   </head>
   <body>
-    <div class="page">
+    <div class="headphones-intro" id="headphones-intro">
+      <div class="headphones-content">
+        <div class="headphones-icon" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><path d="M14 43v-7a26 26 0 0 1 52 0v7" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><rect x="10" y="40" width="15" height="24" rx="7" stroke="currentColor" stroke-width="5"/><rect x="55" y="40" width="15" height="24" rx="7" stroke="currentColor" stroke-width="5"/></svg></div>
+        <h1>Meilleure expérience avec des écouteurs</h1>
+        <button id="headphones-ready" type="button" autofocus>C’est bon j’ai mes écouteurs</button>
+      </div>
+    </div>
+    <div class="page before-start">
+      <div class="music-player" id="music-player" hidden>
+        <button class="music-player-button" id="music-player-button" type="button" aria-label="Lancer la musique">
+          <span class="player-disc" aria-hidden="true"></span>
+          <span class="player-details"><strong>Allow It</strong><small id="player-state">Écouter</small></span>
+          <span class="player-symbol" id="player-symbol" aria-hidden="true">▶</span>
+        </button>
+      </div>
       <main><section class="card" id="card" aria-live="polite"></section></main>
+      <audio id="song" src="audio/allow-it.mp3" preload="metadata"></audio>
     </div>
     <script>
       const card = document.querySelector('#card');
+      const page = document.querySelector('.page');
+      const headphonesIntro = document.querySelector('#headphones-intro');
+      const headphonesReady = document.querySelector('#headphones-ready');
+      const song = document.querySelector('#song');
+      const musicPlayer = document.querySelector('#music-player');
+      const musicPlayerButton = document.querySelector('#music-player-button');
       const flavors = {
         fraise: { name: 'fraise', icon: '🍓', accent: '#e7a7a5', foam: '#efc9c4' },
         vanille: { name: 'vanille', icon: '🍦', accent: '#e8d9ad', foam: '#f4e7c2' },
@@ -105,6 +161,7 @@
       const gift = `<svg class="gift-art" viewBox="0 0 310 245" role="img" aria-label="Un cadeau avec un ruban vert"><ellipse cx="155" cy="223" rx="112" ry="13" fill="#dfe8d5"/><g transform="rotate(-5 155 125)"><rect x="61" y="77" width="188" height="133" rx="16" fill="#e9b0a4"/><path d="M61 107h188v87a16 16 0 0 1-16 16H77a16 16 0 0 1-16-16z" fill="#efa99f"/><path d="M134 77h41v133h-41z" fill="#2f6f4a"/><rect x="52" y="70" width="206" height="39" rx="11" fill="#f7c3b5"/><path d="M134 70h41v39h-41z" fill="#377c51"/><path d="M155 70C95 56 91 9 122 14c27 4 34 39 33 56Zm0 0c58-22 59-64 30-58-24 5-32 42-30 58Z" fill="#3a8255" stroke="#286641" stroke-width="5" stroke-linejoin="round"/><circle cx="155" cy="69" r="14" fill="#2f6f4a"/></g></svg>`;
       const island = `<svg class="island-art" viewBox="0 0 310 220" role="img" aria-label="Une petite île déserte avec un palmier"><ellipse cx="155" cy="190" rx="141" ry="21" fill="#d9ebe1"/><path d="M54 182c32-48 165-53 210 0 5 6-8 17-39 20H83c-27-3-36-11-29-20Z" fill="#efd4a5"/><path d="M171 173c-21-67-12-111 0-139" fill="none" stroke="#8f7650" stroke-width="16" stroke-linecap="round"/><path d="M171 42C141 8 104 11 77 42c34-7 57 2 94 12M170 43C200 7 242 20 259 48c-33-9-56-3-90 9M170 46c4-37-18-52-45-51 17 15 25 34 39 57m7-6c29-24 55-22 74-9-24 2-42 14-73 21" fill="#5d9564" stroke="#4a7e53" stroke-width="5" stroke-linejoin="round"/><circle cx="108" cy="129" r="11" fill="#f3bb93"/><path d="M240 173l11-29 11 29" fill="#f1ede5" stroke="#dfd7c8" stroke-width="5" stroke-linejoin="round"/></svg>`;
       const heart = `<svg class="heart-art" viewBox="0 0 250 220" role="img" aria-label="Un grand cœur rose"><ellipse cx="125" cy="205" rx="93" ry="12" fill="#e7eadd"/><path d="M125 185C89 152 39 117 39 76c0-24 18-43 43-43 20 0 35 11 43 27 8-16 23-27 43-27 25 0 43 19 43 43 0 41-50 76-86 109Z" fill="#eeb0a5" stroke="#e29890" stroke-width="6"/><path d="M76 64c-10 4-16 12-16 25" fill="none" stroke="#fff5ee" stroke-width="8" stroke-linecap="round"/><path d="m27 55-5 9-10 3 10 4 5 9 4-9 10-4-10-3zM219 129l-4 8-8 3 8 3 4 8 3-8 8-3-8-3z" fill="#d5ae68"/></svg>`;
+      const declinedPayment = `<svg class="payment-art" viewBox="0 0 280 225" role="img" aria-label="Un terminal de paiement affichant paiement refusé"><ellipse cx="140" cy="211" rx="100" ry="10" fill="#e7eadd"/><g transform="rotate(-5 140 112)"><rect x="43" y="13" width="194" height="190" rx="25" fill="#dce8d9" stroke="#9db79f" stroke-width="4"/><rect x="57" y="29" width="166" height="131" rx="15" fill="#fffaf5"/><circle cx="140" cy="83" r="29" fill="#eaa9a2"/><path d="m129 72 22 22m0-22-22 22" fill="none" stroke="#fffdf8" stroke-width="7" stroke-linecap="round"/><text x="140" y="137" text-anchor="middle" fill="#a74f4c" font-family="DM Sans, Arial, sans-serif" font-size="14" font-weight="800">PAIEMENT REFUSÉ</text><rect x="84" y="174" width="112" height="8" rx="4" fill="#a9c1aa"/><circle cx="140" cy="191" r="4" fill="#8da78e"/></g><path d="m249 45 5-10 5 10 10 5-10 5-5 10-5-10-10-5z" fill="#d5ae68"/></svg>`;
       function matcha(flavor = flavors.vanille) {
         return `<svg class="matcha-art" viewBox="0 0 250 250" role="img" aria-label="Matcha glacé goût ${flavor.name}"><ellipse cx="125" cy="228" rx="79" ry="11" fill="#dce7d7"/><path d="M79 37h92l-10 171c-1 10-8 17-18 17h-36c-10 0-17-7-18-17L79 37Z" fill="#e8efe1" stroke="#b7c9b7" stroke-width="5"/><path d="M82 87h86l-7 121c-1 10-8 17-18 17h-36c-10 0-17-7-18-17L82 87Z" fill="#a7bd80"/><path d="M81 57h88l-2 39H83l-2-39Z" fill="${flavor.foam}"/><path d="M84 96c18-8 33-4 44 0 15 7 25 5 38-1" fill="none" stroke="#f8f6e8" stroke-width="9" stroke-linecap="round"/><path d="M90 118c22-7 33 6 53 5 8 0 13-2 20-5" fill="none" stroke="#c9d7aa" stroke-width="8" opacity=".7"/><path d="M125 24l57 5" fill="none" stroke="#6b7654" stroke-width="8" stroke-linecap="round"/><path d="M142 31l-10 75" fill="none" stroke="#6b7654" stroke-width="7" stroke-linecap="round"/><ellipse cx="125" cy="58" rx="46" ry="15" fill="${flavor.accent}" stroke="#f7f1e6" stroke-width="5"/><path d="M84 57c7 18 21 23 41 23s37-8 43-23" fill="none" stroke="#e6e8d0" stroke-width="5"/><circle cx="106" cy="50" r="8" fill="#fff7e8" opacity=".75"/><circle cx="141" cy="54" r="6" fill="#fff7e8" opacity=".7"/><path d="M90 138c4 30 7 46 9 63" fill="none" stroke="#d7e7c5" stroke-width="7" stroke-linecap="round" opacity=".75"/></svg>`;
       }
@@ -123,19 +180,52 @@
       </article>`;
       function show(scene, flavorKey = 'vanille') {
         const flavor = flavors[flavorKey] || flavors.vanille;
+        const musicScene = scene === 'music' || scene === 'finale';
+        if (!musicScene) {
+          song.pause();
+          if (song.currentTime) song.currentTime = 0;
+        }
+        musicPlayer.hidden = !musicScene;
+        page.classList.toggle('player-visible', musicScene);
         card.dataset.scene = scene;
-        if (scene === 'welcome') card.innerHTML = `<div class="scene scene-intro"><div class="pill">✦ message très important</div><div class="art-wrap"><span class="sparkle one">✧</span>${gift}<span class="sparkle two">✦</span></div><p class="eyebrow">Coucou mon amour</p><h1>Tu veux voir ton cadeau&nbsp;?</h1><p class="subtitle">Réfléchis bien avant de répondre. Enfin… pas trop non plus.</p><div class="actions"><button class="btn btn-primary" data-action="island">Oui, évidemment ✨</button><button class="btn btn-secondary" data-action="no">Non 🙃</button></div></div>`;
-        if (scene === 'no') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${heart}</div><p class="eyebrow">Mauvaise réponse détectée</p><h1>Wsh tu joues à quoi&nbsp;?</h1><p class="subtitle">On va faire comme si j’avais pas vu ça.</p><div class="actions"><button class="btn btn-primary" data-action="island">Ok ok, oui je veux voir 😭</button><button class="btn btn-ghost" data-action="welcome">Recommencer</button></div></div>`;
-        if (scene === 'island') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${island}</div><p class="eyebrow">Avant, j’ai une question…</p><h1>Si tu étais sur une île déserte, qu’est-ce qui te manquerait le plus&nbsp;?</h1><div class="actions choices"><button class="btn choice" data-action="flavor"><span class="emoji" aria-hidden="true">🍵</span><span>Du matcha</span></button><button class="btn choice" data-action="clement"><span class="emoji" aria-hidden="true">🫶</span><span>Clément</span></button></div><p class="subtitle">Aucune pression. Vraiment aucune.</p></div>`;
-        if (scene === 'flavor') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${matcha()}<span class="sparkle two">✧</span></div><p class="eyebrow">Ah ouais, carrément le matcha ?</p><h1>Bon… choisis ton goût alors.</h1><p class="subtitle">Puisque monsieur Clément passe après une boisson.</p><div class="actions flavors">${Object.entries(flavors).map(([key, f]) => `<button class="btn flavor" data-action="chase" data-flavor="${key}"><span class="emoji" aria-hidden="true">${f.icon}</span><span>${f.name[0].toUpperCase() + f.name.slice(1)}</span></button>`).join('')}</div></div>`;
-        if (scene === 'chase') card.innerHTML = `<div class="scene chase-scene"><p class="eyebrow">Ton matcha ${flavor.name} t’attend</p><h1>Vas-y, prends-le&nbsp;!</h1><p class="subtitle">Il suffit de cliquer dessus. Normalement.</p><div class="chase-field" id="chase-field"><button class="runaway" style="--x:50%;--y:52%" data-action="run" aria-label="Attraper le matcha ${flavor.name}">${matcha(flavor)}<span class="runaway-label">attrape-moi 🍵</span></button></div><p class="taunt" id="taunt" aria-live="polite">Il est juste là… 👀</p><div class="bottom-action"><button class="btn btn-secondary" data-action="island">J’ai eu tort</button></div></div>`;
-        if (scene === 'clement') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${heart}</div><p class="eyebrow">C’est mignon, vraiment</p><h1>Moi jtaurai pas choisit mdrrr</h1><div class="actions"><button class="btn btn-primary" data-action="myQuestion">Suivant →</button></div></div>`;
-        if (scene === 'myQuestion') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${island}</div><p class="eyebrow">À mon tour de répondre</p><h1>Et moi, qu’est-ce qui m’aurait manqué le plus sur cette île&nbsp;?</h1><div class="actions choices"><button class="btn choice" data-action="meAnswer"><span class="emoji" aria-hidden="true">🥹</span><span>Moi</span></button><button class="btn choice" data-action="playAnswer"><span class="emoji" aria-hidden="true">🎮</span><span>La play</span></button></div></div>`;
-        if (scene === 'meAnswer') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${heart}</div><p class="eyebrow">Tu me connais si bien</p><h1>Mdrrr vsy toi</h1><p class="subtitle">Allez, je vais quand même te montrer la suite.</p><div class="actions"><button class="btn btn-primary" data-action="finale">Suivant →</button></div></div>`;
-        if (scene === 'playAnswer') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${gift}</div><p class="eyebrow">On va pas se mentir</p><h1>Oui exactement</h1><p class="subtitle">Mais attends… j’ai quand même quelque chose pour toi.</p><div class="actions"><button class="btn btn-primary" data-action="finale">Suivant →</button></div></div>`;
-        if (scene === 'finale') card.innerHTML = `<div class="scene finale-scene"><p class="eyebrow">La vraie surprise ♡</p><h1>Bon, viens là toi.</h1><div class="art-wrap"><img class="doodle-art" src="clement-cartoon.png" alt="Portrait de Clément en dessin animé tenant un matcha et un bouquet de roses" /></div>${poem}<div class="actions"><button class="btn btn-ghost" data-action="welcome">Recommencer l’histoire ↩</button></div></div>`;
+        if (scene === 'welcome') card.innerHTML = `<div class="scene scene-intro"><div class="art-wrap"><span class="sparkle one">✧</span>${gift}<span class="sparkle two">✦</span></div><p class="eyebrow">sdq maroua</p><h1>Tu veux voir ton cadeau&nbsp;?</h1><p class="subtitle">Réfléchis bien avant de répondre. Enfin… pas trop non plus.</p><div class="actions"><button class="btn btn-primary" data-action="island">Oui, évidemment ✨</button><button class="btn btn-secondary" data-action="no">Non 🙃</button></div></div>`;
+        if (scene === 'no') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap"><img class="doodle-art" src="clement-upset.png" alt="Clément, troublé et un peu fâché, les mains vides" /></div><h1>Wsh tu joues à quoi&nbsp;?</h1><p class="subtitle">On va faire comme si j’avais pas vu ça.</p><div class="actions"><button class="btn btn-primary" data-action="island">Ok ok, oui je veux voir 😭</button><button class="btn btn-ghost" data-action="welcome">Recommencer</button></div></div>`;
+        if (scene === 'island') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${island}</div><h1>Si tu étais sur une île déserte, qu’est-ce qui te manquerait le plus&nbsp;?</h1><div class="actions choices"><button class="btn choice" data-action="flavor"><span class="emoji" aria-hidden="true">🍵</span><span>Du matcha</span></button><button class="btn choice" data-action="clement"><span class="emoji" aria-hidden="true">🫶</span><span>Clément</span></button></div><p class="subtitle">Aucune pression. Vraiment aucune.</p></div>`;
+        if (scene === 'flavor') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${matcha()}<span class="sparkle two">✧</span></div><h1>Bon… choisis ton goût alors.</h1><p class="subtitle">Puisque monsieur Clément passe après une boisson.</p><div class="actions flavors">${Object.entries(flavors).map(([key, f]) => `<button class="btn flavor" data-action="chase" data-flavor="${key}"><span class="emoji" aria-hidden="true">${f.icon}</span><span>${f.name[0].toUpperCase() + f.name.slice(1)}</span></button>`).join('')}</div></div>`;
+        if (scene === 'chase') card.innerHTML = `<div class="scene chase-scene"><h1>Vas-y, prends-le&nbsp;!</h1><p class="subtitle">Il suffit de cliquer dessus. Normalement.</p><div class="chase-field" id="chase-field"><button class="runaway" style="--x:50%;--y:52%" data-action="run" aria-label="Attraper le matcha ${flavor.name}">${matcha(flavor)}<span class="runaway-label">attrape-moi 🍵</span></button></div><p class="taunt" id="taunt" aria-live="polite">Il est juste là… 👀</p><div class="bottom-action" hidden><button class="btn btn-secondary" data-action="island">J’ai eu tort</button></div></div>`;
+        if (scene === 'clement') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${declinedPayment}</div><h1>Moi jtaurai pas choisit mdrrr</h1><div class="actions"><button class="btn btn-primary" data-action="myQuestion">Suivant →</button></div></div>`;
+        if (scene === 'myQuestion') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${island}</div><h1>Et moi, qu’est-ce qui m’aurait manqué le plus sur cette île&nbsp;?</h1><div class="actions choices"><button class="btn choice" data-action="meAnswer"><span class="emoji" aria-hidden="true">🥹</span><span>Maroua</span></button><button class="btn choice" data-action="playAnswer"><span class="emoji" aria-hidden="true">🎮</span><span>La play</span></button></div></div>`;
+        if (scene === 'meAnswer') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap">${heart}</div><h1>Mdrrr vsy toi</h1><p class="subtitle">Allez, je vais quand même te montrer la suite.</p><div class="actions"><button class="btn btn-primary" data-action="music">Suivant →</button></div></div>`;
+        if (scene === 'playAnswer') card.innerHTML = `<div class="scene scene-standard"><div class="art-wrap"><img class="doodle-art" src="clement-agree.png" alt="Clément souriant et faisant un signe d’accord avec le pouce" /></div><h1>Oui exactement</h1><p class="subtitle">Mais attends… j’ai quand même quelque chose pour toi.</p><div class="actions"><button class="btn btn-primary" data-action="music">Suivant →</button></div></div>`;
+        if (scene === 'music') card.innerHTML = `<div class="scene scene-standard scene-music"><div class="record-stage"><div class="record" aria-hidden="true"></div><span class="music-note" aria-hidden="true">♫</span></div><h1>J’ai un son pour toi.</h1><p class="subtitle">J’aimerais que tu l’écoutes, parce qu’il me fait penser à toi.</p><p class="music-message">Tu m’as dit que tu comprenais mieux l’anglais maintenant… Si c’est vraiment le cas, essaie de comprendre un peu les paroles 🤍</p><p class="track-title">Brent Faiyaz · Allow It</p><div class="actions"><button class="btn btn-secondary" data-action="toggleMusic" aria-label="Lancer la lecture">▶ Play</button><button class="btn btn-primary" data-action="finale">Voir la suite →</button></div><p class="music-error" id="music-error" role="alert" hidden>Le son n’a pas pu démarrer. Réessaie en appuyant sur Play.</p></div>`;
+        if (scene === 'finale') card.innerHTML = `<div class="scene finale-scene"><h1>Mme maroua lazreg...</h1><div class="art-wrap"><img class="doodle-art" src="clement-cartoon.png" alt="Portrait de Clément en dessin animé tenant un matcha et un bouquet de roses" /></div>${poem}<div class="actions"><button class="btn btn-ghost" data-action="welcome">Recommencer l’histoire ↩</button></div></div>`;
+        syncMusicControls();
         requestAnimationFrame(() => card.querySelector('button')?.focus({ preventScroll: true }));
       }
+      function syncMusicControls() {
+        const playing = !song.paused && !song.ended;
+        musicPlayer.classList.toggle('is-playing', playing);
+        page.classList.toggle('music-playing', playing);
+        musicPlayerButton.setAttribute('aria-label', playing ? 'Mettre la musique en pause' : 'Lancer la musique');
+        document.querySelector('#player-state').textContent = playing ? 'En cours' : song.ended ? 'Réécouter' : song.currentTime ? 'En pause' : 'Écouter';
+        document.querySelector('#player-symbol').textContent = playing ? '❚❚' : '▶';
+        const sceneButton = card.querySelector('[data-action="toggleMusic"]');
+        if (sceneButton) {
+          sceneButton.textContent = playing ? '❚❚ Pause' : '▶ Play';
+          sceneButton.setAttribute('aria-label', playing ? 'Mettre la lecture en pause' : 'Lancer la lecture');
+        }
+      }
+      function toggleMusic() {
+        if (!song.paused && !song.ended) return song.pause();
+        if (song.ended) song.currentTime = 0;
+        song.play().catch(() => {
+          const message = card.querySelector('#music-error');
+          if (message) message.hidden = false;
+          syncMusicControls();
+        });
+      }
+      for (const eventName of ['play', 'pause', 'ended']) song.addEventListener(eventName, syncMusicControls);
+      musicPlayerButton.addEventListener('click', toggleMusic);
       let tries = 0;
       let currentFlavor = 'vanille';
       const taunts = ['Raté 😌', 'Il est rapide hein ?', 'Même le matcha te fuit 😭', 'Toujours pas… 👀', 'Clément aurait été plus simple.', 'Tu peux avouer que j’avais raison ♡'];
@@ -148,16 +238,29 @@
         cup.style.setProperty('--x', `${x}%`);
         cup.style.setProperty('--y', `${y}%`);
         card.querySelector('#taunt').textContent = taunts[Math.min(tries - 1, taunts.length - 1)];
+        if (tries >= 3) card.querySelector('.bottom-action').hidden = false;
       }
       card.addEventListener('click', event => {
         const button = event.target.closest('button[data-action]');
         if (!button) return;
         const action = button.dataset.action;
         if (action === 'run') return moveMatcha();
+        if (action === 'toggleMusic') return toggleMusic();
         if (action === 'chase') { currentFlavor = button.dataset.flavor; tries = 0; show('chase', currentFlavor); return; }
         show(action);
       });
-      show('welcome');
+      headphonesReady.addEventListener('click', () => {
+        headphonesReady.disabled = true;
+        const enterStory = () => {
+          headphonesIntro.hidden = true;
+          page.classList.remove('before-start');
+          document.querySelector('meta[name="theme-color"]').content = '#f7f4ed';
+          show('welcome');
+        };
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return enterStory();
+        headphonesIntro.classList.add('is-leaving');
+        window.setTimeout(enterStory, 450);
+      });
     </script>
   </body>
 </html>
