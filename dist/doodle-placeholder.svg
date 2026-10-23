@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 300" role="img" aria-labelledby="title">
+  <title id="title">Doodle d’un garçon tenant un matcha et des roses</title>
+  <ellipse cx="170" cy="280" rx="112" ry="12" fill="#e4e9dc"/>
+  <path d="M105 249c3-58 25-92 64-92 43 0 65 34 68 92l-9 19H113z" fill="#f3c9bd" stroke="#364d3d" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M148 156v-22h43v22c-4 9-12 15-21 15s-18-6-22-15z" fill="#e3a985" stroke="#364d3d" stroke-width="5"/>
+  <ellipse cx="169" cy="91" rx="48" ry="55" fill="#e9b58f" stroke="#364d3d" stroke-width="5"/>
+  <path d="M123 83c-3-27 9-54 41-57 28-3 53 14 55 42-12-3-18-11-22-18-14 12-40 11-59 7-1 11-6 21-15 26z" fill="#3b4436" stroke="#364d3d" stroke-width="5" stroke-linejoin="round"/>
+  <path d="m143 94 8-1m37 0 8 1" stroke="#364d3d" stroke-width="5" stroke-linecap="round"/>
+  <path d="M155 116c10 8 23 8 32 0" fill="none" stroke="#a66963" stroke-width="4" stroke-linecap="round"/>
+  <path d="M122 183c-21 9-34 27-39 52m134-52c19 11 31 28 36 52" fill="none" stroke="#364d3d" stroke-width="18" stroke-linecap="round"/>
+  <path d="m81 232-8-27m8 25-18-18m190 20 10-27m-9 26 18-18" fill="none" stroke="#e9b58f" stroke-width="17" stroke-linecap="round"/>
+  <path d="M44 157h70l-8 92c-1 7-6 11-12 11H65c-6 0-11-4-12-11z" fill="#c1d3a0" stroke="#364d3d" stroke-width="5"/>
+  <path d="M46 174c17-7 47-7 66 0" fill="none" stroke="#f3f1dc" stroke-width="8"/>
+  <path d="m79 131 45 3m-32 1-8 57" fill="none" stroke="#687954" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="79" cy="157" rx="35" ry="10" fill="#e6dcc3" stroke="#364d3d" stroke-width="5"/>
+  <path d="M226 246c-12-24-17-51-12-79m26 78c0-34 9-59 29-83m-19 84c14-30 22-45 42-60" fill="none" stroke="#517b57" stroke-width="5" stroke-linecap="round"/>
+  <path d="M211 165c-15-18-3-37 13-26 4-19 26-18 30-1 18-5 25 16 11 28l-27 22z" fill="#dc8f90" stroke="#a86c70" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M260 155c-8-18 7-31 21-19 11-11 28-3 26 12 17 7 9 24-7 26l-29 9z" fill="#e7a6a4" stroke="#a86c70" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M279 184c-5-18 15-29 27-14 16-9 28 6 20 20 10 14-4 26-18 21l-22-10z" fill="#d9808a" stroke="#a86c70" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M245 260c-11-12-20-12-31-17l17 28 43-1 17-29c-17 7-26 9-46 19z" fill="#f4dfcf" stroke="#364d3d" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m31 83-5 9-9 3 9 3 5 9 4-9 9-3-9-3zm281 12-4 8-8 3 8 3 4 8 3-8 8-3-8-3z" fill="#d7ae70"/>
+</svg>
