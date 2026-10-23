@@ -37,7 +37,9 @@
       .page::before { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(circle at 8% 18%, #e8eddd 0 10%, transparent 29%), radial-gradient(circle at 93% 86%, #f5dfd2 0 8%, transparent 31%), #f7f4ed; }
       .page::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .23; background-image: radial-gradient(#83937e .65px, transparent .65px); background-size: 21px 21px; }
       main { width: min(100%, 540px); flex: 1; display: flex; align-items: center; justify-content: center; padding: 30px 0 22px; }
-      .card { position: relative; width: 100%; min-height: 620px; padding: 28px 28px 24px; border: 1px solid rgba(49, 75, 52, .08); border-radius: 36px; background: #fffdf8; box-shadow: 0 30px 80px rgba(53, 72, 52, .11), 0 3px 8px rgba(53, 72, 52, .03); display: flex; flex-direction: column; overflow: hidden; animation: card-in .5s cubic-bezier(.2,.9,.2,1) both; }
+      .card { position: relative; width: 100%; min-height: 620px; padding: 28px 28px 24px; border: 1px solid rgba(49, 75, 52, .08); border-radius: 36px; background: #fffdf8; box-shadow: 0 30px 80px rgba(53, 72, 52, .11), 0 3px 8px rgba(53, 72, 52, .03); display: flex; flex-direction: column; overflow: hidden; }
+      .card.is-exiting { animation: step-out .24s ease-in both; pointer-events: none; }
+      .card.is-entering { animation: step-in .48s cubic-bezier(.2, .85, .25, 1) both; }
       .card::before { content: ""; position: absolute; width: 165px; height: 165px; border-radius: 50%; background: #e9f0dc; top: -95px; right: -52px; pointer-events: none; }
       .card[data-scene="chase"] { min-height: 690px; }
       .scene { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
@@ -110,7 +112,8 @@
       .music-error { margin: 10px 0 0; color: #a04743; font-size: 13px; }
       .track-title { margin-top: 20px; color: #815b48; font-size: 13px; font-weight: 800; }
       @keyframes spin { to { transform: rotate(360deg); } }
-      @keyframes card-in { from { opacity: 0; transform: translateY(15px) scale(.98); } to { opacity: 1; transform: none; } }
+      @keyframes step-out { to { opacity: 0; transform: translateY(-30px) scale(.96); } }
+      @keyframes step-in { from { opacity: 0; transform: translateY(42px) scale(.96); } to { opacity: 1; transform: none; } }
       @keyframes float { 50% { transform: translateY(-8px) rotate(2deg); } }
       @media (max-width: 570px) {
         .page { padding-left: 13px; padding-right: 13px; }
@@ -127,7 +130,12 @@
         .page.player-visible main { padding-top: 84px; }
       }
       @media (max-width: 360px) { .card { padding-inline: 16px; } h1 { font-size: 36px; } .scene-standard h1 { font-size: 31px; } }
-      @media (prefers-reduced-motion: reduce) { .page, .page *, .page *::before, .page *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+      @media (prefers-reduced-motion: reduce) {
+        .page, .page *, .page *::before, .page *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+        .page .card.is-exiting { animation-duration: .24s !important; }
+        .page .card.is-entering { animation-duration: .48s !important; }
+        .page .music-player.is-playing .player-disc, .page.music-playing .record { animation-duration: 3s !important; }
+      }
     </style>
   </head>
   <body>
@@ -182,7 +190,7 @@
         <p>J’ai envie de savoir ce que tu aimes,<br>ce que tu détestes,<br>ce qui te fait rire ou détourner les yeux,<br>ce que tu désires.<br>J’ai envie d’apprendre qui tu es,<br>et d’avancer avec toi,</p>
         <p class="poem-signoff">if you allow it.</p>
       </article>`;
-      function show(scene, flavorKey = 'vanille') {
+      function renderScene(scene, flavorKey = 'vanille') {
         const flavor = flavors[flavorKey] || flavors.vanille;
         const musicScene = scene === 'music' || scene === 'finale';
         if (!musicScene) {
@@ -205,6 +213,30 @@
         if (scene === 'finale') card.innerHTML = `<div class="scene finale-scene"><h1>Mme maroua lazreg...</h1><div class="art-wrap"><img class="doodle-art" src="clement-cartoon.png" alt="Portrait de Clément en dessin animé tenant un matcha et un bouquet de roses" /></div>${poem}<div class="actions"><button class="btn btn-ghost" data-action="welcome">Recommencer l’histoire ↩</button></div></div>`;
         syncMusicControls();
         requestAnimationFrame(() => card.querySelector('button')?.focus({ preventScroll: true }));
+      }
+      let currentScene = null;
+      let transitioning = false;
+      let enterTimer;
+      function show(scene, flavorKey = 'vanille') {
+        if (transitioning) return;
+        window.clearTimeout(enterTimer);
+        card.classList.remove('is-entering');
+        transitioning = true;
+        card.setAttribute('aria-busy', 'true');
+        const enter = () => {
+          renderScene(scene, flavorKey);
+          currentScene = scene;
+          card.classList.remove('is-exiting');
+          card.classList.add('is-entering');
+          card.removeAttribute('aria-busy');
+          transitioning = false;
+          enterTimer = window.setTimeout(() => card.classList.remove('is-entering'), 480);
+        };
+        if (currentScene === null) enter();
+        else {
+          card.classList.add('is-exiting');
+          window.setTimeout(enter, 240);
+        }
       }
       function syncMusicControls() {
         const playing = !song.paused && !song.ended;
@@ -245,6 +277,7 @@
         if (tries >= 3) card.querySelector('.bottom-action').hidden = false;
       }
       card.addEventListener('click', event => {
+        if (transitioning) return;
         const button = event.target.closest('button[data-action]');
         if (!button) return;
         const action = button.dataset.action;
